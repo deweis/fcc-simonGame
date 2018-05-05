@@ -27,6 +27,7 @@ body {
      border-radius: 30px;
      margin: 8px;
  }
+ /* so the pads fit on phone landscape mode as well */
  @media screen and (max-height: 430px) {
    .main {
      width: 400px;
