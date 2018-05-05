@@ -2,3 +2,38 @@ body {
   font-family: 'Roboto', sans-serif;
   text-align: center;
 }
+.main {
+   display: flex;
+   flex-wrap: wrap;
+   margin: 0 auto;
+   align-items: center;
+   justify-content: center;
+ }
+ .color-pad {
+   width: 35vmin;
+   height: 35vmin;
+   border-radius: 7vmin;
+   background: green;
+   margin: 2vmin;
+ }
+ /* ====================== Media Queries ====================== */
+ @media screen and (min-width: 430px) {
+   .main {
+     width: 430px;
+   }
+   .color-pad {
+     width: 150px;
+     height: 150px;
+     border-radius: 30px;
+     margin: 8px;
+ }
+ @media screen and (max-height: 430px) {
+   .main {
+     width: 400px;
+   }
+   .color-pad {
+     width: 130px;
+     height: 130px;
+     border-radius: 30px;
+     margin: 5px;
+ }
