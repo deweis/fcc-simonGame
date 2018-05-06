@@ -14,18 +14,42 @@ document.getElementById('btn-start').addEventListener('click', startGame);
 /* Start the game */
 function startGame() {
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
-  console.log(track);
   playSong(track);
 }
 
 /* Play sound when user clicks  */
 function playSound() {
   const id = this.id;
+  userPlay.push(Number(id[3]));
+  checkUser();
   document.getElementById(id).style.backgroundColor = '#fff';
   const origin = 'https://s3.amazonaws.com/freecodecamp/';
   const audio = new Audio(`${origin}simonSound${Number(id[3]) + 1}.mp3`);
   audio.play();
   setBG(id);
+}
+
+/* check users click */
+function checkUser() {
+  const item = userPlay.length - 1;
+  if (track[item] === userPlay[item]) {
+    document.getElementById('title').innerText = 'fCC Simon Game';
+    if (track.length === userPlay.length) {
+      document.getElementById('title').innerText = 'yieyiiihh';
+      setTimeout(function () {
+        startGame();
+        document.getElementById('title').innerText = 'fCC Simon Game';
+      }, 1000
+      );
+    }
+  } else {
+    document.getElementById('title').innerText = 'wrong';
+    setTimeout(function () {
+      playSong(track);
+      document.getElementById('title').innerText = 'fCC Simon Game';
+    }, 1000
+    );
+  }
 }
 
 /* change BG color */
@@ -52,4 +76,6 @@ function playSong(arr) {
       id++;
     }
   }
+
+  userPlay = [];
 }
