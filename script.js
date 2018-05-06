@@ -3,13 +3,25 @@ const colors = ['#FFC261', '#71E878', '#5460FF', '#E87B69'];
 let track = [];
 let userPlay = [];
 
+document.getElementById('btn-start').addEventListener('click', startGame);
+
 /* Set colors on initial load */
 for (let i = 0; i < 4; i++) {
   document.getElementById(`pad${i}`).style.backgroundColor = colors[i];
-  document.getElementById(`pad${i}`).addEventListener('click', playSound);
 }
 
-document.getElementById('btn-start').addEventListener('click', startGame);
+/* Switch eventlistener on / off */
+function toggleEventListener(bool) {
+  if (bool === 1) {
+    for (let i = 0; i < 4; i++) {
+      document.getElementById(`pad${i}`).addEventListener('click', playSound);
+    }
+  } else if (bool === 0) {
+    for (let i = 0; i < 4; i++) {
+      document.getElementById(`pad${i}`).removeEventListener('click', playSound);
+    }
+  }
+}
 
 /* Start the game */
 function startGame() {
@@ -36,6 +48,7 @@ function checkUser() {
   if (track[item] === userPlay[item]) {
     document.getElementById('title').innerText = 'fCC Simon Game';
     if (track.length === userPlay.length) {
+      toggleEventListener(0);
       document.getElementById('title').innerText = 'yieyiiihh';
       setTimeout(function () {
         startGame();
@@ -44,6 +57,7 @@ function checkUser() {
       );
     }
   } else {
+    toggleEventListener(0);
     document.getElementById('title').innerText = 'wrong';
     setTimeout(function () {
       playSong(track);
@@ -69,6 +83,8 @@ function playSong(arr) {
   function play() {
     if (id === arr.length) {
       clearInterval(run);
+      userPlay = [];
+      toggleEventListener(1);
     } else {
       document.getElementById(`pad${arr[id]}`).style.backgroundColor = '#fff';
       const audio = new Audio(`${origin}simonSound${arr[id] + 1}.mp3`);
@@ -77,6 +93,4 @@ function playSong(arr) {
       id++;
     }
   }
-
-  userPlay = [];
 }
