@@ -13,6 +13,7 @@ document.getElementById('btn-start').addEventListener('click', startGame);
 
 /* Start the game */
 function startGame() {
+  document.getElementById('counter').innerText = track.length;
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
   playSong(track);
 }
