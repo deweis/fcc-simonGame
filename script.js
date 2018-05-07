@@ -27,9 +27,22 @@ function toggleEventListener(bool) {
 
 /* Start the game */
 function startGame() {
+  if (track.length === 0) switchStartButton();
   document.getElementById('counter').innerText = track.length;
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
   playSong(track);
+}
+
+function switchStartButton() {
+  document.getElementById('btn-start').removeEventListener('click', startGame);
+  document.getElementById('btn-start').addEventListener('click', restartGame);
+  document.getElementById('btn-start').innerText = 'Restart';
+}
+
+function restartGame() {
+  track = [];
+  userPlay = [];
+  startGame();
 }
 
 /* Play sound when user clicks  */
