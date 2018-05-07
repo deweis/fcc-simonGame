@@ -15,10 +15,12 @@ function toggleEventListener(bool) {
   if (bool === 1) {
     for (let i = 0; i < 4; i++) {
       document.getElementById(`pad${i}`).addEventListener('click', playSound);
+      document.getElementById(`pad${i}`).style.cursor = 'pointer';
     }
   } else if (bool === 0) {
     for (let i = 0; i < 4; i++) {
       document.getElementById(`pad${i}`).removeEventListener('click', playSound);
+      document.getElementById(`pad${i}`).style.cursor = 'default';
     }
   }
 }
