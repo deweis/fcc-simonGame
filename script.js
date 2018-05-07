@@ -28,8 +28,8 @@ function toggleEventListener(bool) {
 /* Start the game */
 function startGame() {
   if (track.length === 0) switchStartButton();
-  document.getElementById('counter').innerText = track.length;
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
+  document.getElementById('counter').innerText = track.length;
   playSong(track);
 }
 
