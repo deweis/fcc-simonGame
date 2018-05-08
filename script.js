@@ -5,6 +5,9 @@ let userPlay = [];
 
 document.getElementById('btn-start').addEventListener('click', startGame);
 
+/* Firefox saves 'checked' when refreshing the page..?? */
+document.getElementById('strict').checked = false;
+
 /* Set colors on initial load */
 for (let i = 0; i < 4; i++) {
   document.getElementById(`pad${i}`).style.backgroundColor = colors[i];
@@ -75,7 +78,12 @@ function checkUser() {
     toggleEventListener(0);
     document.getElementById('title').innerText = 'wrong';
     setTimeout(function () {
-      playSong(track);
+      if (document.getElementById('strict').checked === true) {
+        restartGame();
+      } else {
+        playSong(track);
+      }
+
       document.getElementById('title').innerText = 'fCC Simon Game';
     }, 1000
     );
