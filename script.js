@@ -4,6 +4,7 @@ let track = [];
 let userPlay = [];
 
 document.getElementById('btn-start').addEventListener('click', startGame);
+document.getElementById('strict').addEventListener('change', toggleStrictFont);
 
 /* Firefox saves 'checked' when refreshing the page..?? */
 document.getElementById('strict').checked = false;
@@ -11,6 +12,15 @@ document.getElementById('strict').checked = false;
 /* Set colors on initial load */
 for (let i = 0; i < 4; i++) {
   document.getElementById(`pad${i}`).style.backgroundColor = colors[i];
+}
+
+/* Change font color based on checkbox state */
+function toggleStrictFont() {
+  if (document.getElementById('strict').checked === true) {
+    document.getElementById('label-strict').style.color = '#2196F3';
+  } else {
+    document.getElementById('label-strict').style.color = '#bdbdbd';
+  }
 }
 
 /* Switch eventlistener on / off */
