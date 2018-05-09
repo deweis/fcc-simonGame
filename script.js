@@ -33,6 +33,7 @@ function startGame() {
   if (track.length === 0) switchStartButton();
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
   document.getElementById('counter').innerText = track.length;
+  document.getElementById('counter').style.color = '#bdbdbd';
   playSong(track);
 }
 
