@@ -2,6 +2,13 @@ body {
   color: #bdbdbd; /*#757575*/
   font-family: 'Roboto', sans-serif;
   text-align: center;
+  margin: 0 auto;
+}
+h1 {
+  border-radius: 5px;
+  margin: 15px auto;
+  padding: 15px 0;
+  width: 74vmin;
 }
 .main {
    display: flex;
@@ -116,6 +123,9 @@ input:checked + .slider:before {
 }
 /* ====================== Media Queries ====================== */
 @media screen and (min-width: 430px) {
+   h1 {
+     width: 315px;
+   }
    .main {
      width: 430px;
    }

@@ -44,6 +44,7 @@ function startGame() {
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
   document.getElementById('counter').innerText = track.length;
   document.getElementById('counter').style.color = '#bdbdbd';
+  document.getElementById('title').innerText = 'Listen carefully';
   playSong(track);
 }
 
@@ -63,10 +64,10 @@ function restartGame() {
 function playSound() {
   const id = this.id;
   userPlay.push(Number(id[3]));
-  checkUser();
-  document.getElementById(id).style.backgroundColor = '#fff';
   const origin = 'https://s3.amazonaws.com/freecodecamp/';
   const audio = new Audio(`${origin}simonSound${Number(id[3]) + 1}.mp3`);
+  checkUser();
+  document.getElementById(id).style.backgroundColor = '#fff';
   audio.play();
   setBG(id);
 }
@@ -75,19 +76,25 @@ function playSound() {
 function checkUser() {
   const item = userPlay.length - 1;
   if (track[item] === userPlay[item]) {
-    document.getElementById('title').innerText = 'fCC Simon Game';
+    // document.getElementById('title').innerText = 'Listen carefully';
     if (track.length === userPlay.length) {
       toggleEventListener(0);
-      document.getElementById('title').innerText = 'yieyiiihh';
+      document.getElementById('title').innerText = 'correct';
+      document.getElementById('title').style.backgroundColor = '#d4edda';
+      document.getElementById('title').style.color = '#fff';
       setTimeout(function () {
         startGame();
-        document.getElementById('title').innerText = 'fCC Simon Game';
+        document.getElementById('title').innerText = 'Listen carefully';
+        document.getElementById('title').style.backgroundColor = '#fff';
+        document.getElementById('title').style.color = '#bdbdbd';
       }, 1000
       );
     }
   } else {
     toggleEventListener(0);
     document.getElementById('title').innerText = 'wrong';
+    document.getElementById('title').style.backgroundColor = '#f5c6cb';
+    document.getElementById('title').style.color = '#fff';
     setTimeout(function () {
       if (document.getElementById('strict').checked === true) {
         restartGame();
@@ -95,7 +102,9 @@ function checkUser() {
         playSong(track);
       }
 
-      document.getElementById('title').innerText = 'fCC Simon Game';
+      document.getElementById('title').innerText = 'Listen carefully';
+      document.getElementById('title').style.backgroundColor = '#fff';
+      document.getElementById('title').style.color = '#bdbdbd';
     }, 1000
     );
   }
@@ -119,6 +128,7 @@ function playSong(arr) {
       clearInterval(run);
       userPlay = [];
       toggleEventListener(1);
+      document.getElementById('title').innerText = 'Your turn..';
     } else {
       document.getElementById(`pad${arr[id]}`).style.backgroundColor = '#fff';
       const audio = new Audio(`${origin}simonSound${arr[id] + 1}.mp3`);
