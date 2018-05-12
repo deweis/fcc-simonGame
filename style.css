@@ -172,7 +172,4 @@ input:checked + .slider:before {
    .controls {
      width: 335px;
    }
-   button {
-     margin-left: 10px;
-   }
 }
