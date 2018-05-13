@@ -40,7 +40,7 @@ h1 {
   margin-bottom: 15px;
 }
 button {
-   background: #bdbdbd;
+   background: #5cb85c; /*#bdbdbd;*/
    border: none;
    border-radius: 5px;
    color: #fff;
@@ -55,10 +55,10 @@ button:focus {
   outline: 1px solid #fff;
 }
 button:hover {
-   background: #9e9e9e;
+   background: #449d44; /*#9e9e9e;*/
 }
 button:active {
-   background: #616161;
+   background: #449d44; /*#616161;*/
 }
 .overlay { /*https://www.w3schools.com/howto/howto_css_overlay.asp*/
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
