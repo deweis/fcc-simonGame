@@ -1,7 +1,13 @@
 /*jshint esversion: 6 */
 const colors = ['#FFC261', '#71E878', '#5460FF', '#E87B69'];
-const origin = 'https://s3.amazonaws.com/freecodecamp/';
+const audioFiles = [
+  'https://s3.amazonaws.com/freecodecamp/simonSound1.mp3',
+  'https://s3.amazonaws.com/freecodecamp/simonSound2.mp3',
+  'https://s3.amazonaws.com/freecodecamp/simonSound3.mp3',
+  'https://s3.amazonaws.com/freecodecamp/simonSound4.mp3',
+];
 const wins = 20;
+let loaded = 0;
 let track = [];
 let userPlay = [];
 
@@ -40,8 +46,43 @@ function toggleEventListener(bool) {
   }
 }
 
+/*
+ * preload Audio files, based on: https://stackoverflow.com/questions/49792768/js-html5-audio-why-is-canplaythrough-not-fired-on-ios-safari
+ */
+function loadedAudio() {  // this will be called every time an audio file is loaded
+  loaded++;   // we keep track of the loaded files vs the requested files
+  if (loaded == audioFiles.length) { // all have loaded
+    return;
+  }
+}
+
+function preloadsounds() {
+  for (var i in audioFiles) { // we start preloading all the audio files with html audio
+    preloadAudio(audioFiles[i]);
+  }
+}
+
+function preloadAudio(url) {
+  var audio = new Audio();
+
+  // once this file loads, it will call loadedAudio()
+  // the file will be kept by the browser as cache
+  audio.addEventListener('canplaythrough', loadedAudio, false);
+  audio.addEventListener('error', function failed(e) {
+    console.log('COULD NOT LOAD AUDIO');
+    $('#NETWORKERROR').show();
+  });
+
+  audio.src = url;
+  audio.load();
+}
+
 /* Start the game */
 function startGame() {
+  if (loaded < audioFiles.length) {
+    preloadsounds();
+  }
+
   if (track.length === 0) switchStartButton(2);
   track.push(Math.floor(Math.random() * (3 - 0 + 1)) + 0);
   document.getElementById('counter').innerText = track.length;
@@ -79,9 +120,9 @@ function setBG(cell, delay) {
 function playSound() {
   const id = this.id;
   userPlay.push(Number(id[3]));
-  const audio = new Audio(`${origin}simonSound${Number(id[3]) + 1}.mp3`);
   checkUser();
   document.getElementById(id).style.backgroundColor = '#fff';
+  const audio = new Audio(audioFiles[Number(id[3])]);
   audio.play();
   setBG(id, 200);
 }
@@ -102,7 +143,7 @@ function playSong(arr) {
       document.getElementById('title').innerText = 'Your turn..';
     } else {
       document.getElementById(`pad${arr[id]}`).style.backgroundColor = '#fff';
-      const audio = new Audio(`${origin}simonSound${arr[id] + 1}.mp3`);
+      const audio = new Audio(audioFiles[arr[id]]);
       audio.play();
       setBG(`pad${arr[id]}`, speed);
       id++;
@@ -114,7 +155,6 @@ function playSong(arr) {
 function checkUser() {
   const item = userPlay.length - 1;
   if (track[item] === userPlay[item]) {
-    // document.getElementById('title').innerText = 'Listen carefully';
     if (track.length === userPlay.length) {
       toggleEventListener(0);
       document.getElementById('title').innerText = 'correct';
@@ -176,7 +216,7 @@ function playWin() {
       document.getElementById('overlay').style.display = 'none';
     } else {
       document.getElementById(`pad${song[id]}`).style.backgroundColor = '#fff';
-      const audio = new Audio(`${origin}simonSound${song[id] + 1}.mp3`);
+      const audio = new Audio(audioFiles[song[id]]);
       audio.play();
       setBG(`pad${song[id]}`, 300);
       id++;
